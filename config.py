@@ -9,7 +9,7 @@ BACKEND = 'Text'  # Errbot will start in text mode (console only mode) and will 
 
 BOT_DATA_DIR = r'./var'
 BOT_EXTRA_PLUGIN_DIR = [
-    
+    'iijmio',
 ]
 
 BOT_LOG_FILE = r'var/errbot.log'
