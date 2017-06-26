@@ -26,6 +26,19 @@ class Iijmio(BotPlugin):
         result = client.fetch_usage()
         return result
 
+    @botcmd(name='iijmio_remain')
+    def fetch_remain(self, message, args):
+        if self.config is None:
+            return "not config"
+        if not self.config.get('username', None) \
+                or not self.config.get('username', None):
+            return "Example"
+        client = IijmioSession(**self.config)
+        result = client.fetch_remain()
+        if result == 0:
+            return '今月のクーポン残量はありません'
+        else:
+            return '今月は残り{}MB利用可能です'.format(result)
 
 class IijmioSession(object):
     URL_BASE = 'https://www.iijmio.jp'
@@ -68,3 +81,11 @@ class IijmioSession(object):
             date_ = datetime.strptime(cols[0].text, '%Y年%m月%d日').date()
             records[date_] = {'high': int(cols[1].text.strip()[:-2]), 'low': int(cols[2].text.strip()[:-2])}
         return records
+
+    def fetch_remain(self):
+        session = self.login()
+        resp = session.get(self.url('/service/setup/hdd/couponstatus/'))
+        soup = bs4.BeautifulSoup(resp.content, 'html5lib')
+        table = soup.find('table', 'base2')
+        total_row = table.find_all('tr')[1]
+        return int(total_row.find_all('td')[1].text.strip()[:-2])
