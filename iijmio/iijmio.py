@@ -63,7 +63,7 @@ class IijmioSession(object):
         resp = self.session.post(post_url, params)
         return self.session
 
-    def fetch_usage(self):
+    def fetch_daily_usage(self):
         session = self.login()
         resp = session.get(self.url('/service/setup/hdd/viewdata/'))
         soup = bs4.BeautifulSoup(resp.content, 'html5lib')
