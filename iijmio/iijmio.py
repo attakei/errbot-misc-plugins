@@ -15,7 +15,7 @@ class Iijmio(BotPlugin):
             'username': "YOUR_IIJMIO_USERNAME",
             'password': "YOUR_IIJMIO_PASSWORD", }
 
-    @botcmd(name='iijmio_current')
+    @botcmd(name='iijmio_fetch_daily')
     def fetch_currently_usage(self, message, args):
         if self.config is None:
             return "not config"
