@@ -1,0 +1,12 @@
+[Core]
+name = iijmio
+module = iijmio
+
+[Documentation]
+description = IIJmio monitor
+
+[Python]
+version = 3
+
+[Errbot]
+
